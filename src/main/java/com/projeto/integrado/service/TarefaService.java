@@ -3,6 +3,8 @@ package com.projeto.integrado.service;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.projeto.integrado.entity.StatusTarefa;
 import com.projeto.integrado.entity.Tarefa;
 import com.projeto.integrado.repository.TarefaRepository;
 
@@ -18,6 +20,11 @@ public class TarefaService {
 	public Tarefa getById(Integer id) {
 		return tarefaRepository.findById(id).orElse(null) ;
 	}
+	
+	public Tarefa getByStatus(StatusTarefa status) {
+		return tarefaRepository.findByStatusTarefa(status).orElse(null) ;
+	}
+	
 	
 	public Tarefa saveTarefa(Tarefa tarefa) {
 		return tarefaRepository.save(tarefa);

@@ -4,6 +4,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.projeto.integrado.entity.Projeto;
+import com.projeto.integrado.entity.User;
 import com.projeto.integrado.repository.ProjetoRepository;
 
 @Service
@@ -18,6 +19,10 @@ public class ProjetoService {
 	public Projeto getById(Integer id) {
 		return projetoRepository.findById(id).orElse(null) ;
 	}
+	
+	public Projeto getByDescricao(String descricao) {
+        return projetoRepository.findByProjetoDescricao(descricao).orElse(null);
+    }
 	
 	public Projeto saveProjeto(Projeto projeto) {
 		return projetoRepository.save(projeto);
@@ -46,5 +51,6 @@ public class ProjetoService {
 		}else {
 			return false;
 		}
-	}
+	}	
+
 }

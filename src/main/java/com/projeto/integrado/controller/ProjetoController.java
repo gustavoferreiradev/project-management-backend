@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.projeto.integrado.entity.Projeto;
+import com.projeto.integrado.entity.User;
 import com.projeto.integrado.service.ProjetoService;
 
 @RestController
@@ -40,6 +42,15 @@ public class ProjetoController {
 		else 
 			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);		
 	}
+	
+	@GetMapping("/{desc}")
+	public ResponseEntity<Projeto> getProjectByDescription(@PathVariable String descricao){
+		Projeto projeto = projetoService.getByDescricao(descricao);
+		if(projeto != null)
+			return new ResponseEntity<>(projeto, HttpStatus.OK); 
+		else 
+			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);	
+    }
 	
 	@PostMapping
 	public ResponseEntity<Projeto> saveProjeto(@RequestBody Projeto projeto) {

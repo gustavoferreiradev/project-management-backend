@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.projeto.integrado.entity.StatusTarefa;
 import com.projeto.integrado.entity.Tarefa;
 import com.projeto.integrado.service.TarefaService;
 
@@ -35,6 +36,15 @@ public class TarefaController {
 	@GetMapping("/{id}")
 	public ResponseEntity<Tarefa> getById(@PathVariable Integer id) {
 		Tarefa tarefa = tarefaService.getById(id);
+		if(tarefa != null)
+			return new ResponseEntity<>(tarefa, HttpStatus.OK); 
+		else 
+			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);		
+	}
+	
+	@GetMapping("/{status}")
+	public ResponseEntity<Tarefa> getByStatus(@PathVariable StatusTarefa status) {
+		Tarefa tarefa = tarefaService.getByStatus(status);
 		if(tarefa != null)
 			return new ResponseEntity<>(tarefa, HttpStatus.OK); 
 		else 
